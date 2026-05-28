@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meg's House ✦</title>
-
     <style>
         * {
             margin: 0;
@@ -13,118 +12,174 @@
         }
 
         body {
+            width: 100%;
             height: 100vh;
-            overflow: hidden;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #F8FAFC;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #fff;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 12px;
-            background:
-                radial-gradient(circle at top left, rgba(167, 139, 250, 0.15), transparent 35%),
-                radial-gradient(circle at top right, rgba(125, 211, 252, 0.12), transparent 30%),
-                linear-gradient(180deg, #0F172A 0%, #111827 100%);
+            padding: 10px;
+            /* From sydney_clock.html */
+            background: linear-gradient(135deg, #191925, #0f0f16);
+            text-align: center;
         }
 
-        /* Shared Glassmorphism Panels */
+        /* Panel — matches sydney_clock widget-box, no backdrop-filter (iCUE safe) */
         .glass-panel {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 22px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-            padding: 12px;
+            padding: 10px 14px;
         }
 
-        /* TOP CLOCK SECTION */
+        /* TOP CLOCK */
         .top-section {
             text-align: center;
         }
 
         .title-label {
-            font-size: 0.78rem;
-            letter-spacing: 4px;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            color: #94A3B8;
+            color: #a2a2c2;
             margin-bottom: 2px;
         }
 
+        /* Clock — rose pink, thin, from sydney_clock */
         .clock {
-            font-size: 4rem;
-            font-weight: 300;
-            letter-spacing: -1px;
+            font-size: 3.6rem;
+            font-weight: 200;
+            letter-spacing: 3px;
             line-height: 1;
-            color: #F8FAFC;
-            text-shadow: 0 0 18px rgba(167, 139, 250, 0.20);
+            color: #ffb6c1;
+            /* Kept very subtle — full glow is GPU-heavy, this is safe */
+            text-shadow: 0 0 12px rgba(255, 182, 193, 0.25);
         }
 
+        /* Date — from sydney_clock */
         .date-display {
-            margin-top: 4px;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
+            margin-top: 6px;
+            font-size: 0.72rem;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            color: #94A3B8;
+            color: #a2a2c2;
         }
 
-        /* GIF SECTION */
+        /* Rose divider — from sydney_clock */
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 182, 193, 0.6), transparent);
+            margin: 6px auto 4px auto;
+        }
+
+        /* IMAGE SECTION */
         .gif-wrapper {
             width: 100%;
             flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 2px 0;
+            padding: 4px 0;
         }
 
-        .gif-container {
+        .photo-frame {
+            max-width: 200px;
             width: 100%;
-            max-width: 220px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 182, 193, 0.15);
+            overflow: hidden;
+            background: rgba(255, 182, 193, 0.03);
         }
 
-        .gif-container img {
+        .photo-frame img {
             width: 100%;
-            height: auto;
-            border-radius: 18px;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.5s ease;
         }
 
-        /* MESSAGE BOX */
+        .photo-frame img.fade-out {
+            opacity: 0;
+        }
+
+        /* MESSAGE BOX — from sydney_clock message-box */
         .message-box {
             width: 100%;
-            text-align: center;
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: #C4B5FD;
-            text-shadow: 0 0 12px rgba(196, 181, 253, 0.25);
-            margin-bottom: 6px;
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: 400;
+            color: #e2e2ff;
+            line-height: 1.6;
+            padding: 10px 14px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02);
         }
 
-        /* SPOTIFY CONTAINER */
-        .spotify-container {
+        /* MUSIC BAR */
+        .music-bar {
             width: 100%;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 182, 193, 0.12);
+            background: rgba(255, 255, 255, 0.02);
         }
 
-        .spotify-container iframe {
-            border: none;
-            border-radius: 16px;
+        .music-icon {
+            font-size: 1.4rem;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        .music-text {
+            font-size: 0.78rem;
+            color: #a2a2c2;
+            letter-spacing: 1px;
+        }
+
+        .music-text strong {
             display: block;
+            font-size: 0.88rem;
+            color: #ffb6c1;
+            font-weight: 400;
+            letter-spacing: 2px;
         }
 
-        /* Subtle floating animation */
-        .floating {
-            animation: float 5s ease-in-out infinite;
+        /* Animated bars */
+        .bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 18px;
+            margin-left: auto;
         }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-4px); }
-            100% { transform: translateY(0px); }
+        .bar {
+            width: 3px;
+            background: #ffb6c1;
+            border-radius: 2px;
+            animation: grow 0.8s ease-in-out infinite alternate;
+            opacity: 0.7;
+        }
+        .bar:nth-child(1) { animation-delay: 0s;    height: 6px; }
+        .bar:nth-child(2) { animation-delay: 0.15s; height: 12px; }
+        .bar:nth-child(3) { animation-delay: 0.3s;  height: 18px; }
+        .bar:nth-child(4) { animation-delay: 0.45s; height: 10px; }
+        .bar:nth-child(5) { animation-delay: 0.6s;  height: 6px; }
+        @keyframes grow {
+            from { transform: scaleY(0.3); opacity: 0.4; }
+            to   { transform: scaleY(1);   opacity: 0.9; }
         }
     </style>
 </head>
@@ -133,71 +188,95 @@
 
     <!-- TOP CLOCK -->
     <div class="top-section glass-panel">
-        <div class="title-label">Meg's Universe ✦</div>
-        <div class="clock" id="clock">00:00</div>
+        <div class="title-label">Meg's House ✦</div>
+        <div class="clock" id="clock">--:--</div>
+        <div class="divider"></div>
         <div class="date-display" id="date-display">Loading...</div>
     </div>
 
-    <!-- HEAD-BANGING SHEEP GIF -->
+    <!-- ROTATING PHOTOS -->
     <div class="gif-wrapper">
-        <div class="gif-container floating">
-            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFwMXViMWtreGt4aGMxZGRlaHMxN3JoeHppaDBlOXRzMmpoaDQ1NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TxqdI1WbB554I/giphy.gif" alt="Head-banging Sheep">
+        <div class="photo-frame">
+            <img src="img_1.jpg" alt="Photo" id="rotating-img" />
         </div>
     </div>
 
     <!-- MESSAGE -->
-    <div class="message-box glass-panel" id="message">
-        Loading your daily roast...
+    <div class="message-box" id="message">
+        Hello Kitty! 🥔
     </div>
 
-    <!-- SPOTIFY PLAYER -->
-    <div class="spotify-container glass-panel">
-        <iframe
-            data-testid="embed-iframe"
-            src="https://open.spotify.com/embed/playlist/6guBKoODEMD4Hdmjimn2g2?utm_source=generator&theme=0"
-            width="100%"
-            height="152"
-            allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-        </iframe>
+    <!-- MUSIC BAR -->
+    <div class="music-bar">
+        <div class="music-icon">💿</div>
+        <div class="music-text">
+            <strong>Spotify Playlist</strong>
+            open.spotify.com → Meg's Playlist
+        </div>
+        <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
     </div>
 
     <script>
-        // CLOCK SYSTEM
-        function updateDashboard() {
-            const now = new Date();
-            const timeOptions = { timeZone: 'Australia/Sydney', hour: '2-digit', minute: '2-digit', hour12: false };
-            const dateOptions = { timeZone: 'Australia/Sydney', weekday: 'long', month: 'long', day: 'numeric' };
-
-            document.getElementById('clock').innerText = now.toLocaleTimeString('en-AU', timeOptions);
-            document.getElementById('date-display').innerText = now.toLocaleDateString('en-AU', dateOptions);
+        function updateClock() {
+            try {
+                var now = new Date();
+                var timeOpts = { timeZone: 'Australia/Sydney', hour: '2-digit', minute: '2-digit', hour12: false };
+                var dateOpts = { timeZone: 'Australia/Sydney', weekday: 'long', month: 'long', day: 'numeric' };
+                document.getElementById('clock').textContent = now.toLocaleTimeString('en-AU', timeOpts);
+                document.getElementById('date-display').textContent = now.toLocaleDateString('en-AU', dateOpts);
+            } catch(e) { /* silent fail */ }
         }
 
-        // Messgage list
-        const sweetNotes = [
+        var sweetNotes = [
             "Hello Kitty! 🥔",
             "You muppet! 🤡",
             "Kittyyyyyyyyyyyyyyyyyy",
-            "Stop playing game and go to bed! 🤨",
+            "Stop playing games and go to bed! 🤨",
             "You love me? 💖",
             "Meg Meg Meg Meg Meg 💖",
             "Cuddles? 💜",
-            "If you see this I need kissed!"
+            "If you see this I need kisses!"
         ];
 
+        var images = ['img_1.jpg', 'img_2.jpg', 'img_3.jpg', 'img_4.jpg'];
+        var currentImg = 0;
+
         function updateMessage() {
-            const message = sweetNotes[Math.floor(Math.random() * sweetNotes.length)];
-            document.getElementById('message').innerText = message;
+            try {
+                var msg = sweetNotes[Math.floor(Math.random() * sweetNotes.length)];
+                document.getElementById('message').textContent = msg;
+            } catch(e) { /* silent fail */ }
         }
 
-        // Run both systems instantly when loaded or refreshed
-        updateDashboard();
-        updateMessage();
+        function rotateImage() {
+            try {
+                var el = document.getElementById('rotating-img');
+                el.classList.add('fade-out');
+                setTimeout(function() {
+                    currentImg = (currentImg + 1) % images.length;
+                    el.src = images[currentImg];
+                    el.classList.remove('fade-out');
+                }, 500);
+            } catch(e) { /* silent fail */ }
+        }
 
-        // Keep them tracking smoothly over time
-        setInterval(updateDashboard, 60000); // Ticks clock every minute
-        setInterval(updateMessage, 900000);   // Changes msg every 15 minutes
+        updateClock();
+        updateMessage();
+        document.querySelector('.music-bar').style.cursor = 'pointer';
+        document.querySelector('.music-bar').onclick = function() {
+            window.open('https://open.spotify.com/playlist/6guBKoODEMD4Hdmjimn2g2', '_blank');
+};
+        setInterval(updateClock, 30000);
+        setInterval(function() {
+            updateMessage();
+            rotateImage();
+        }, 900000);
     </script>
 
 </body>
